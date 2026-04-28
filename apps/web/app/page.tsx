@@ -45,7 +45,7 @@ function GridSkeleton({ count = 3, type = 'tour' }) {
 
 // --- DATA FETCHING COMPONENTS --- //
 async function FeaturedTours() {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const { data: tours, error } = await supabase
     .from('tours')
     .select('*')
@@ -96,7 +96,7 @@ async function FeaturedTours() {
 }
 
 async function HiddenGems() {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const { data: gems, error } = await supabase
     .from('hidden_gems')
     .select('*')
@@ -139,9 +139,8 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       {/* 1. HERO SECTION */}
-      <section className="relative pt-24 pb-32 lg:pt-36 lg:pb-40 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-700 to-teal-500 -z-10" />
-        <div className="absolute inset-0 opacity-10 -z-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+      <section className="relative pt-24 pb-32 lg:pt-36 lg:pb-40 overflow-hidden bg-gradient-to-br from-blue-900 via-blue-700 to-teal-500">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white relative z-10">
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 drop-shadow-md">
             Meet Your Next Journey with TripMeet

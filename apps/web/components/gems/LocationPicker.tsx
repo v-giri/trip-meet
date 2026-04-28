@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
-import Map, { Marker, NavigationControl } from 'react-map-gl'
-import type { MapRef, ViewState } from 'react-map-gl'
+import Map, { Marker, NavigationControl } from 'react-map-gl/mapbox'
+import type { MapRef, ViewState } from 'react-map-gl/mapbox'
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import { MapPin } from 'lucide-react'

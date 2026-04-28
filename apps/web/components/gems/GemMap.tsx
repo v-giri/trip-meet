@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import Map, { Marker, Popup, NavigationControl, FullscreenControl, ViewState } from 'react-map-gl'
-import type { MapRef } from 'react-map-gl'
+import Map, { Marker, Popup, NavigationControl, FullscreenControl, ViewState } from 'react-map-gl/mapbox'
+import type { MapRef } from 'react-map-gl/mapbox'
 import Supercluster from 'supercluster'
 import { MapPin } from 'lucide-react'
 import Link from 'next/link'
