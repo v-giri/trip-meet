@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '../../lib/supabase'
@@ -318,7 +318,7 @@ function ProfileTab({ user, profile }: { user: any; profile: any }) {
 }
 
 // ─── MAIN PAGE ───────────────────────────────────────────────────────────────
-export default function DashboardPage() {
+function DashboardContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user, profile, loading, isAdmin } = useAuth()
@@ -390,5 +390,22 @@ export default function DashboardPage() {
 
       </div>
     </div>
+  )
+}
+
+// Suspense wrapper required by Next.js 16 for useSearchParams()
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 animate-pulse">
+        <div className="max-w-5xl mx-auto px-4 py-12 space-y-8">
+          <div className="h-24 bg-gray-200 rounded-3xl" />
+          <div className="h-14 bg-gray-200 rounded-2xl" />
+          <div className="h-64 bg-gray-200 rounded-2xl" />
+        </div>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
   )
 }
