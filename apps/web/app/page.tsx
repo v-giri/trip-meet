@@ -182,8 +182,8 @@ export default function Home() {
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">Dates</label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <input type="text" placeholder="Add dates" className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-gray-50" />
+                <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400 pointer-events-none z-10" />
+                <input type="date" min={new Date().toISOString().split('T')[0]} className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-gray-50 text-gray-700 cursor-pointer" />
               </div>
             </div>
             <div>
