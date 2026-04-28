@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAuth } from '../../hooks/useAuth'
 import { useState } from 'react'
+import { User, LayoutDashboard, CalendarCheck, Heart, ShieldCheck, LogOut } from 'lucide-react'
 
 export default function Navbar() {
   const { user, profile, loading, signOut, isAdmin } = useAuth()
@@ -71,21 +72,42 @@ export default function Navbar() {
                     </button>
                     
                     {dropdownOpen && (
-                      <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {isAdmin && (
-                          <Link href="/admin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                            Admin Dashboard
-                          </Link>
-                        )}
-                        <Link href="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                          My Dashboard
-                        </Link>
-                        <button
-                          onClick={handleLogout}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                        >
-                          Sign out
-                        </button>
+                      <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-black/5 focus:outline-none overflow-hidden">
+                        {/* User info header */}
+                        <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
+                          <p className="text-sm font-bold text-gray-900 truncate">{profile?.full_name || 'Traveler'}</p>
+                          <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                        </div>
+                        <div className="py-1">
+                          {isAdmin ? (
+                            <Link href="/admin" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-purple-700 hover:bg-purple-50">
+                              <ShieldCheck className="w-4 h-4" /> Admin Dashboard
+                            </Link>
+                          ) : (
+                            <>
+                              <Link href="/dashboard" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                <LayoutDashboard className="w-4 h-4" /> My Dashboard
+                              </Link>
+                              <Link href="/dashboard?tab=bookings" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                <CalendarCheck className="w-4 h-4" /> My Bookings
+                              </Link>
+                              <Link href="/dashboard?tab=wishlist" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                <Heart className="w-4 h-4" /> Wishlist
+                              </Link>
+                              <Link href="/dashboard?tab=profile" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                <User className="w-4 h-4" /> Profile
+                              </Link>
+                            </>
+                          )}
+                        </div>
+                        <div className="border-t border-gray-100 py-1">
+                          <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 w-full text-left"
+                          >
+                            <LogOut className="w-4 h-4" /> Sign out
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -150,16 +172,28 @@ export default function Navbar() {
                     </div>
                   </div>
                   <div className="mt-3 space-y-1">
-                    {isAdmin && (
-                      <Link href="/admin" className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
-                        Admin Dashboard
+                    {isAdmin ? (
+                      <Link href="/admin" className="flex items-center gap-2 px-4 py-2 text-base font-medium text-purple-700 hover:bg-purple-50 rounded">
+                        <ShieldCheck className="w-5 h-5" /> Admin Dashboard
                       </Link>
+                    ) : (
+                      <>
+                        <Link href="/dashboard" className="flex items-center gap-2 px-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-800">
+                          <LayoutDashboard className="w-5 h-5" /> My Dashboard
+                        </Link>
+                        <Link href="/dashboard?tab=bookings" className="flex items-center gap-2 px-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-800">
+                          <CalendarCheck className="w-5 h-5" /> My Bookings
+                        </Link>
+                        <Link href="/dashboard?tab=wishlist" className="flex items-center gap-2 px-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-800">
+                          <Heart className="w-5 h-5" /> Wishlist
+                        </Link>
+                        <Link href="/dashboard?tab=profile" className="flex items-center gap-2 px-4 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-800">
+                          <User className="w-5 h-5" /> Profile
+                        </Link>
+                      </>
                     )}
-                    <Link href="/dashboard" className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">
-                      My Dashboard
-                    </Link>
-                    <button onClick={handleLogout} className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 w-full text-left">
-                      Sign out
+                    <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 text-base font-medium text-red-600 hover:bg-red-50 w-full text-left rounded">
+                      <LogOut className="w-5 h-5" /> Sign out
                     </button>
                   </div>
                 </>

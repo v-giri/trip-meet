@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '../../lib/supabase'
 import { useAuth } from '../../hooks/useAuth'
@@ -320,12 +320,15 @@ function ProfileTab({ user, profile }: { user: any; profile: any }) {
 // ─── MAIN PAGE ───────────────────────────────────────────────────────────────
 export default function DashboardPage() {
   const router = useRouter()
-  const { user, profile, loading } = useAuth()
-  const [activeTab, setActiveTab] = useState<Tab>('bookings')
+  const searchParams = useSearchParams()
+  const { user, profile, loading, isAdmin } = useAuth()
+  const initialTab = (searchParams.get('tab') as Tab) || 'bookings'
+  const [activeTab, setActiveTab] = useState<Tab>(initialTab)
 
   useEffect(() => {
     if (!loading && !user) router.push('/auth/login?redirect=/dashboard')
-  }, [loading, user, router])
+    if (!loading && isAdmin) router.replace('/admin')
+  }, [loading, user, isAdmin, router])
 
   if (loading) return (
     <div className="min-h-screen bg-gray-50 animate-pulse">
