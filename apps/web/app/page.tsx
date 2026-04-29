@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { Suspense } from 'react'
 import { createServerSupabaseClient } from '../lib/supabase-server'
-import { MapPin, Calendar, Users, Search, Compass, Heart, Map, Sparkles, Star, ChevronRight } from 'lucide-react'
+import { MapPin, Compass, Heart, Map, Sparkles, Star, ChevronRight, Users, Calendar, Search } from 'lucide-react'
+import HomeSearchBar from '../components/HomeSearchBar'
 
 // --- SKELETONS --- //
 function TourCardSkeleton() {
@@ -168,38 +169,9 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* 2. SEARCH BAR (Overlapping Hero) */}
-      <section className="max-w-5xl mx-auto px-4 -mt-20 relative z-20 mb-16">
-        <div className="bg-white rounded-2xl shadow-xl p-4 md:p-6 border border-gray-100">
-          <form className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Destination</label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <input type="text" placeholder="Where to?" className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-gray-50" />
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Dates</label>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400 pointer-events-none z-10" />
-                <input type="date" min={new Date().toISOString().split('T')[0]} className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-gray-50 text-gray-700 cursor-pointer" />
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Travelers</label>
-              <div className="relative">
-                <Users className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <input type="number" min="1" placeholder="Guests" className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-gray-50" />
-              </div>
-            </div>
-            <button type="button" className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-bold flex items-center justify-center transition shadow-md w-full">
-              <Search className="w-5 h-5 mr-2" />
-              Search Tours
-            </button>
-          </form>
-        </div>
-      </section>
+      <HomeSearchBar />
 
       {/* 3. TOUR CATEGORIES */}
       <section className="py-12 bg-gray-50">

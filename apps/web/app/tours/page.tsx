@@ -4,16 +4,19 @@ import { useState, useEffect } from 'react'
 import { createClient } from '../../lib/supabase'
 import TourCard from '../../components/tours/TourCard'
 import { Search, SlidersHorizontal, MapPin } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
-export default function ToursPage() {
+function ToursContent() {
+  const searchParams = useSearchParams()
   const [tours, setTours] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   
-  // Filters
-  const [searchQuery, setSearchQuery] = useState('')
+  // Filters — pre-fill from URL params set by homepage search
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '')
   const [category, setCategory] = useState('All')
-  const [sortOption, setSortOption] = useState('price-low') // price-low, price-high, duration
-  const [isDomestic, setIsDomestic] = useState<boolean | null>(null) // null = all, true = domestic, false = intl
+  const [sortOption, setSortOption] = useState('price-low')
+  const [isDomestic, setIsDomestic] = useState<boolean | null>(null)
 
   const supabase = createClient()
 
@@ -173,3 +176,20 @@ export default function ToursPage() {
     </div>
   )
 }
+
+export default function ToursPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, i) => <div key={i} className="h-72 bg-gray-200 rounded-2xl animate-pulse" />)}
+          </div>
+        </div>
+      </div>
+    }>
+      <ToursContent />
+    </Suspense>
+  )
+}
+

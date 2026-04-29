@@ -148,11 +148,9 @@ export default function AdminGemsPage() {
           <h1 className="text-3xl font-extrabold text-gray-900">Hidden Gems</h1>
           <p className="text-gray-500 mt-1">{total} in current view</p>
         </div>
-        {tab === 'all' && (
-          <button onClick={() => setModalGem(null)} className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition">
-            <Plus className="w-5 h-5" /> Add Gem
-          </button>
-        )}
+        <button onClick={() => setModalGem(null)} className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition">
+          <Plus className="w-5 h-5" /> Add Gem
+        </button>
       </div>
 
       <div className="flex gap-2 mb-6">
